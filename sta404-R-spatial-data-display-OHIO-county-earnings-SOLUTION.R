@@ -93,11 +93,19 @@ OH_County_earnings2 %>%
   select(county, all_education_levels, diffMedian) %>% 
   View()
 
-
+## mapping with the difference .....
 ohio_county_map2 <- ohio.county %>% 
   inner_join(OH_County_earnings2, by=c("subregion" = "county"))
 
-
+ggplot(ohio_county_map2, aes(x=long,y=lat,
+                            group=group,
+                            fill=diffMedian)) +
+  geom_polygon() +
+  #  guides(fill='none') +
+  scale_fill_gradient2(low="red",mid = "lightgrey",high="black") +
+  coord_map() +
+  labs(fill="Difference from\nMedian Income ($)\n(ACS 2020?)") +
+  theme_minimal()
 
 #=======================================================================
 #=======================================================================
