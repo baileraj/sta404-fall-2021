@@ -1,4 +1,4 @@
-# app4.R
+# app4-plotly.R
 # same as app4.R but with added plotly interaction
 # REF:  https://plot.ly/r/shiny-tutorial/
 #
@@ -64,6 +64,7 @@ server <- function(input, output) {
   })
   
   output$myscatterplot <- renderPlotly({
+      req(input$xvar,input$yvar)
       p1 <- ggplot() 
         labs(x=names(varnames)[varnames==input$xvar],
              y=names(varnames)[varnames==input$yvar]

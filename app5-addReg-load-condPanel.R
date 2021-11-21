@@ -1,5 +1,5 @@
 # app5-addReg-load-condPanel.R
-# Rev: 02 may 21
+# Rev: 14 nov 21
 # + load saved data
 # + add conditional panel selection of option
 # REFs
@@ -38,14 +38,14 @@ library(ggplot2)    # don't need anything else
 # mydir <- "C:/Users/John Bailer/Documents/Classes/STA404class/ShinyModule08Apps"
 # save(fev_DF, varnames, 
 #      file=paste0(mydir,"/fevData.Rdata"))
+#
+# save(fev_DF,varnames, file= "fevData.Rdata")
 
 load("fevData.Rdata")
 ##
 ## now we can omit the read.csv and varnames
 ##     def'n in the app BUT need to have 
 ##     fevData.Rdata in folder with the Shiny app.R
-
-
 
 
 ### Define UI for application

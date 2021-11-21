@@ -1,16 +1,20 @@
 # sta404-Shiny-intro-app.R
 # DIR: ../STA404class
+# REV: 14 Nov 2021
 # Acknowledgments: 
 #    Short Courses / Webinars - G. Grolemund, M. Cetinkaya-Rundel
 #    Discussions with Karsten Maurer
 #       related to framing Shiny apps
 
-# ............................................................
+###############################################################
+# 
 # Quick look at a Shiny app (and the web page behind it)
 # http://dataviz.miamioh.edu/Butler_County_Overdose_Deaths/
-# (inspect what is going on in a web page)
-
-# ............................................................
+# (inspect what is going on in a web page - View Source)
+#    on MacOS:  "Developer" link
+# another example: https://dataviz.miamioh.edu/NIOSH-NPG/
+###############################################################
+# 
 # R concept useful in Shiny development
 #   functions (also passing parameters)
 #   lists 
@@ -35,10 +39,11 @@ CoeffVar(rnorm(n=100, mean=50, sd=10))
 
 # Example 2:  Coefficient of Variation
 CoeffVar2 <- function(x) {
+    argsStr <- paste0("CoeffVar2 called with argument: ", deparse(substitute(x)))
     std.dev = sd(x)
     xbar = mean(x)
     cv = std.dev/xbar
-    list(Sample = x, SD = std.dev, XBAR = xbar, CV = cv)
+    list(Call = argsStr, Sample = x, SD = std.dev, XBAR = xbar, CV = cv)
 }
 CV.RES <- CoeffVar2(rnorm(n=100, mean=50, sd=10))
 
@@ -47,8 +52,31 @@ str(CV.RES)   # a list is returned from the function
 CV.RES$CV     # you can extract components from a list
 CV.RES$Sample[1:2]
 
-# ............................................................
+## Analogies that might work?
+## functions are like RECIPES for producing a product given a list
+##          of ingredients (parameters of the function)
+## lists are like TRAINS with cars that can all have different content
+##          most general data object in R
 
+CV.RES[3]
+CV.RES[[3]]
+str(CV.RES[3])      # 3rd car
+str(CV.RES[[3]])    # contents of 3rd 'car'
+
+mean(CV.RES[2])     # 2nd car 'itself'
+mean(CV.RES[[2]])   # contents of the 2nd 'car'
+
+###############################################################
+
+
+
+###############################################################
+# Experience with Reactive Programming?
+# Spreadsheets
+#     built simple sheet with function of cells and change
+#           value of one of the input cells
+#
+###############################################################
 
 #
 # dynamic viz - animation is common example, not much user control (play/pause)
@@ -83,9 +111,14 @@ CV.RES$Sample[1:2]
 # in RStudio ...
 #   File > New File > Shiny Web App ...
 
+###############################################################
+# Workflow suggestion
+#    1. sketch the desired app structure
+#    2. construct static versions of graphics / pages
+#    3. Shiny-fy this but adding user input in stages
 
-
-# building to iris Shiny app...
+###############################################################
+# building to FEV Shiny app...
 # Server side
 # - read FEV data and construct data frame 
 # - myplot <= ggplot(fev_DF,aes(x=age.yrs, y=ht.in)) + 
